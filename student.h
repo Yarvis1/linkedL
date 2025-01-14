@@ -5,7 +5,7 @@
 
 class student{
  public:
-  student(int n, int g, const char* l);//constructor
+  student(int n, double g, const char* l);//constructor
   int getID();//get id
   void setID(int n);//set id
   const char* getName();//get name
@@ -15,7 +15,7 @@ class student{
   void printData();//print everything
  private:
   int Id;
-  int GPA;
+  double GPA;
   char name[25];
 };
 #endif

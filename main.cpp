@@ -7,10 +7,26 @@ void add(student* newstudent);
 void print (Node* next);
 Node* head;
 int main(){
-  student* greg= new student(12,232,"greg");//creates student
-  student* jeff= new student(134,12,"jeff");
-  add(jeff);//add student
-  add(greg);
+  char input[10];
+  cout<<"funtions: ADD,DELETE, PRINT,END"<<endl;
+  cin.getline(input,10);
+  if(strcmp(input,"ADD")==0){
+    int id;
+    const char name[40];
+    double GPA;
+    student* stu = new student(id,GPA,name);
+    add(stu);
+ }
+   if(strcmp(input,"DELETE")==0){
+     
+  }
+    if(strcmp(input,"PRINT")==0){
+      print(head);
+  }
+     if(strcmp(input,"END")==0){
+
+  }
+
   print(head);//print list
 }
 void add(student* newstudent){
