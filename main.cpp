@@ -12,8 +12,14 @@ int main(){
   cin.getline(input,10);
   if(strcmp(input,"ADD")==0){
     int id;
-    const char name[40];
-    double GPA;
+    char name[40];
+    float GPA;
+    cout<<"enter Id number: ";
+    cin>>id;
+    cout<<"enter name: ";
+    cin.getline(name,40);
+    cout<<"enter GPA : ";
+    cin>>GPA;
     student* stu = new student(id,GPA,name);
     add(stu);
  }
@@ -37,11 +43,16 @@ void add(student* newstudent){
   }
   else{//add to end of list
     while(current->getNext() != NULL){
-      current = current->getNext();
+      if(current->getStudent()->getID()>newstudent->getID()){
+	current=current->getNext();
+       }
+      else{
+	current->
+	break;
+      }
+
     }
-    current->setNext(new Node());
-    current->getNext()->setStudent(newstudent);
-}
+    }
 }
 void print(Node* next){
   if (next == head){//begin of list

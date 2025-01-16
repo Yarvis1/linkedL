@@ -10,12 +10,12 @@ class student{
   void setID(int n);//set id
   const char* getName();//get name
   void setName(const char* n);//setname
-  int getGpa();//return gpa
+  float getGpa();//return gpa
   void setGpa(int n);//set gpa
   void printData();//print everything
  private:
   int Id;
-  double GPA;
+  float GPA;
   char name[25];
 };
 #endif

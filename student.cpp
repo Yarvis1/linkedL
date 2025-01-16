@@ -2,7 +2,7 @@
 #include<cstring>
 #include "student.h"
 using namespace std;
-student::student(int n, double g,const char* l){
+student::student(int n, float g,const char* l){
   Id=n;
   GPA=g;
   strncpy(name,l,25);
@@ -19,7 +19,7 @@ const char* student::getName(){
 void student::setName(const char* n){
   strncpy(name,n,25);
 }
-double student :: getGpa(){
+float student :: getGpa(){
   return GPA;
 };
 void student::setGpa(double n){
