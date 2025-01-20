@@ -2,7 +2,7 @@
 #include<cstring>
 #include "student.h"
 using namespace std;
-student::student(int n, float g,const char* l){
+student::student(int n, double g,const char* l){
   Id=n;
   GPA=g;
   strncpy(name,l,25);

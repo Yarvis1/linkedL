@@ -11,7 +11,7 @@ class student{
   const char* getName();//get name
   void setName(const char* n);//setname
   float getGpa();//return gpa
-  void setGpa(int n);//set gpa
+  void setGpa(double n);//set gpa
   void printData();//print everything
  private:
   int Id;

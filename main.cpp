@@ -1,71 +1,107 @@
-#include<iostream>
-#include<cstring>
+#include <iostream>
+#include <cstring>
 #include "student.h"
 #include "head.h"
+
 using namespace std;
-void add(student* newstudent);
-void print (Node* next);
-Node* head;
-int main(){
-  char input[10];
-  cout<<"funtions: ADD,DELETE, PRINT,END"<<endl;
-  cin.getline(input,10);
-  if(strcmp(input,"ADD")==0){
-    int id;
-    char name[40];
-    float GPA;
-    cout<<"enter Id number: ";
-    cin>>id;
-    cout<<"enter name: ";
-    cin.getline(name,40);
-    cout<<"enter GPA : ";
-    cin>>GPA;
-    student* stu = new student(id,GPA,name);
-    add(stu);
- }
-   if(strcmp(input,"DELETE")==0){
-     
-  }
-    if(strcmp(input,"PRINT")==0){
-      print(head);
-  }
-     if(strcmp(input,"END")==0){
+//prototypes
+void print(Node* next);
+Node* add(Node* current, student* newstudent);
+Node* deleteStudent(Node* current, int id);
+Node* head = nullptr;
 
-  }
+int main() {
+    bool running = true;//run loop
+    char input[10];
 
-  print(head);//print list
-}
-void add(student* newstudent){
-  Node* current = head;//current is begginng of list
-  if(current ==NULL){//create list if no head
-    head= new Node();
-    head->setStudent(newstudent);
-  }
-  else{//add to end of list
-    while(current->getNext() != NULL){
-      if(current->getStudent()->getID()>newstudent->getID()){
-	current=current->getNext();
-       }
-      else{
-	current->
-	break;
-      }
+    while (running) {
+        cout << "Functions: ADD, DELETE, PRINT, END" << endl;
+        cin.getline(input, 10);
+	//add
+        if (strcmp(input, "ADD") == 0) {
+            int id;
+            char name[40];
+            float GPA;
 
+            cout << "Enter ID number: ";
+            cin >> id;
+            cin.ignore();
+            cout << "Enter name: ";
+            cin.getline(name, 40);
+            cout << "Enter GPA: ";
+            cin >> GPA;
+            cin.ignore();
+
+            student* stu = new student(id, GPA, name);
+            head = add(head, stu);
+        }
+	//delete
+        else if (strcmp(input, "DELETE") == 0) {
+            int id;
+            cout << "Enter ID to delete: ";
+            cin >> id;
+            cin.ignore();
+            head = deleteStudent(head, id);
+        }
+	//print from head
+        else if (strcmp(input, "PRINT") == 0) {
+            print(head);
+        }
+	//quit while loop
+        else if (strcmp(input, "END") == 0) {
+            running = false;
+        }
+        else {
+            cout << "Not valid input" << endl;
+        }
     }
+
+    return 0;
+}
+//adds sorting by ID value
+Node* add(Node* current, student* newstudent) {
+//sort
+    if (!current || current->getStudent()->getID() > newstudent->getID()) {
+        Node* newNode = new Node();
+        newNode->setStudent(newstudent);
+        newNode->setNext(current);
+        return newNode; //returnnew head
+    } else {
+//move past
+        current->setNext(add(current->getNext(), newstudent));
+        return current; return current
     }
 }
-void print(Node* next){
-  if (next == head){//begin of list
-    cout<<"list: "<<endl;
-  }
-  if(next!= NULL){//derefrence student pointer
+
+Node* deleteStudent(Node* current, int id) {
+    if (!current) {
+	//no id found
+        cout << "Student with ID " << id << " not found." << endl;
+        return nullptr;
+    }
+
+    if (current->getStudent()->getID() == id) {
+        Node* temp = current;
+        current = current->getNext();
+        delete temp->getStudent();
+        delete temp;
+        cout << "Student with ID " << id << " deleted." << endl;
+        return current; // Return the new head
+    } else {
+        current->setNext(deleteStudent(current->getNext(), id));
+        return current; // Return the current head
+    }
+}
+
+void print(Node* next) {//prints from given node
+    if (!next) {
+        return;
+    }
     student* s = next->getStudent();
-    if(s!=NULL){//prints student data
-      cout<<"name: "<<s->getName()<<", ";
-      cout<<"Id: "<<s->getID()<<", ";
-      cout<<"GPA: "<<s->getGpa()<<", "<<endl;      
+    if (s) {
+        cout << "Name: " << s->getName() << ", ";
+        cout << "ID: " << s->getID() << ", ";
+        cout << "GPA: " << s->getGpa() << endl;
     }
-    print(next->getNext());//prints next
-  }
+    print(next->getNext()); // Recursive call
 }
-
